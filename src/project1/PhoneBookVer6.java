@@ -2,11 +2,10 @@ package project1;
 
 import java.util.Scanner;
 
-import project1.ver05.PhoneInfo;
-import project1.ver05.PhoneBookManager;
-
+import project1.ver04.PhoneInfo;
+import project1.ver04.PhoneBookManager;
 	
-public class PhoneBookVer05 
+public class PhoneBookVer6
 {
 
 	public static void printMenu() 
@@ -32,7 +31,7 @@ public class PhoneBookVer05
 			int choice = scan.nextInt();
 			switch(choice)
 			{
-			case ManuItem.:
+			case 1:
 				handler.dataInput(choice);
 				break;
 			case 2:
