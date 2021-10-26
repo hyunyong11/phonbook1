@@ -3,6 +3,7 @@ package project1;
 import java.util.Scanner;
 
 import project1.ver05.PhoneInfo;
+import project1.ver05.MenuItem;
 import project1.ver05.PhoneBookManager;
 
 	
@@ -19,7 +20,7 @@ public class PhoneBookVer05
 		System.out.print("5. 프로그램 종료 " );
 	}
 	
-	public static void main(String[] args)
+	public static void main(String[] args) 
 	{		
 		Scanner scan = new Scanner(System.in);
 	
@@ -32,19 +33,19 @@ public class PhoneBookVer05
 			int choice = scan.nextInt();
 			switch(choice)
 			{
-			case ManuItem.:
+			case MenuItem.DATAINPUT1:
 				handler.dataInput(choice);
 				break;
-			case 2:
+			case MenuItem.DATASEARCH1:
 				handler.dataSearch();
 				break;
-			case 3:
+			case MenuItem.DATADELETE1:
 				handler.dataDelete();
 				break;
-			case 4:
+			case MenuItem.DATAALLSHOW1:
 				handler.dataAllShow();
 				break;
-			case 5:
+			case MenuItem.END:
 				System.out.println("프로그램을 종료합니다.");
 				return;
 			}

@@ -1,4 +1,4 @@
- package project1.ver05;
+ package project1.ver06;
 
 import java.util.Scanner;
 
@@ -21,7 +21,6 @@ public class PhoneBookManager
 		String iName, iPhone, iMajor, iComp;
 		int iScNum;
 		System.out.println("1번 : 일반   2번 : 학교   3번 : 회사");
-		
 		while(true)
 		{
 			int cho = sc.nextInt();
@@ -60,6 +59,7 @@ public class PhoneBookManager
 				PhoneCompanyInfo com = new PhoneCompanyInfo(iName, iPhone, iComp);
 				account[numOfAccount++] = com;
 				return;
+			
 			}
 			
 		}
