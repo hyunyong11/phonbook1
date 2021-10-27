@@ -13,8 +13,6 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 	
 	HashSet<Object> obj = new HashSet<Object>(100);
 
-	public PhoneBookManager() {}
-	
 	
 	public static void printMenu() 
 	{
@@ -69,25 +67,35 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 			{
 				throw new NullPointerException();
 			}
+			
+			
 			if(obj.add(obj2)==false)
 			{
 				System.out.println("이름 똑같잖아요");
 				System.out.println("덮어쓸까? Y(y)/N(n)");
-				char tryag = sc.next().charAt(0);
 				
-				if(tryag == 'y' || tryag == 'Y')
+				String rename = sc.nextLine();
+				
+				if(rename.equals("Y")||rename.equals("y"))
 				{
-					Iterator itr = obj.iterator();
-					while(itr.hasNext())
+					if(obj.contains(obj2))
 					{
-						PhoneInfo PI = (PhoneInfo)itr.next();
-						
-						if(PI.name.equals(obj2.name))//기존삭제 새로넣은거 붙이기
-						{
-							obj.remove(PI);
-							obj.add(obj2);
-						}
+						obj.remove(obj2);
+						obj.add(obj2);
+						System.out.println("덮어쓰기성공");
 					}
+					else
+					{
+						System.out.println("덮어쓰기실패");
+					}
+				}
+				else if(rename.equals("N")||rename.equals("n"))
+				{
+					System.out.println("덮어쓰기 취소.");
+				}
+				else
+				{
+					System.out.println("잘못입력");
 				}
 			}
 		}
@@ -126,10 +134,6 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 						((PhoneInfo)PI).showPhoneInfo();
 					}
 				}
-			}
-			if(isFind =false)
-			{
-				throw new NullPointerException();
 			}
 		}	
 		catch(NullPointerException e)
