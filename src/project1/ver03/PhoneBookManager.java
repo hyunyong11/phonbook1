@@ -14,6 +14,17 @@ public class PhoneBookManager
 		numOfAccount = 0;
 	}
 	
+	public static void printMenu() 
+	{
+		System.out.println("######## 메뉴를 입력하세요 ########");
+		System.out.print("1. 데이터 입력 ");
+		System.out.println("2. 데이터 검색 ");
+		System.out.print("3. 데이터 삭제 ");
+		System.out.println("4. 주소록 출력 ");
+		System.out.print("5. 프로그램 종료 " );
+	}
+	
+	
 	public void dataInput()
 	{
 		Scanner sc = new Scanner(System.in);
