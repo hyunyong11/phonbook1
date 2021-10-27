@@ -145,7 +145,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 		System.out.print("삭제할 이름을 입력하세요:");
 		String deleteName = sc.nextLine();
 		
-		System.out.println("이름 : ");
+		System.out.println("삭제되었습니다.");
 		
 		try
 		{	
