@@ -1,6 +1,7 @@
 package project1.ver08;
 
-import java.io.IOException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 public class AutoSaverT extends Thread
 {
@@ -18,18 +19,22 @@ public class AutoSaverT extends Thread
 		try
 		{
 		
+			PrintWriter out = new PrintWriter(new FileWriter("src/project1/ver08/AutoSaveBook.txt"));
 			while(true)
 			{
-				pm.saveInfoTxt();
+				for
+				( Object PI : pm.obj)
+				{
+						out.println(PI);
+						out.close();
+				}
 				sleep(3000);
 				System.out.println("3초마다 자동저장!!");
 			}
 		}
-		catch (InterruptedException e)
+		catch (Exception e)
 		{
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			
 		}
 	}
 				

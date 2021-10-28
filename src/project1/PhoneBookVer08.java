@@ -3,9 +3,9 @@ package project1;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import project1.ver08.PhoneInfo;
 import project1.ver08.MenuItem;
 import project1.ver08.PhoneBookManager;
+import project1.ver08.AutoSaverT;
 
 	
 public class PhoneBookVer08 
@@ -17,6 +17,7 @@ public class PhoneBookVer08
 		Scanner scan = new Scanner(System.in);
 	
 		PhoneBookManager handler = new PhoneBookManager();	
+		AutoSaverT as = new AutoSaverT(handler);
 		
 		while(true)
 		{
@@ -40,7 +41,7 @@ public class PhoneBookVer08
 					handler.dataAllShow();
 					break;
 				case MenuItem.AUTOSAVE1:
-					handler.autoSave(handler);
+					handler.autoSave(as);
 					break;
 				case MenuItem.END:
 					System.out.println("프로그램을 종료합니다.");

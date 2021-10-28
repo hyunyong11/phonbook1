@@ -1,20 +1,13 @@
  package project1.ver08;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Set;
-
-
 
 
 public class PhoneBookManager implements MenuItem, SubMenuItem 
@@ -202,18 +195,16 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 				((PhoneInfo)object).showPhoneInfo();
 		}
 	}
-	public void autoSave(PhoneBookManager handler) 
+	public void autoSave(AutoSaverT as) 
 	{
 		System.out.println("1번 : 자동저장 켜기   2번 : 자동저장 끄기");
 		int save = sc.nextInt();
-		AutoSaverT sa = null;
-		
 		if(save==1)
 		{
-			if(!sa.isAlive())
+			if(!as.isAlive())
 			{
-				setDaemon(true);
-				sa.start();
+				as.setDaemon(true);
+				as.start();
 				System.out.println("자동저장 활성화");
 			}
 			else
@@ -224,9 +215,9 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 		}
 		else if(save==2)
 		{
-			if(sa.isAlive())
+			if(as.isAlive())
 			{
-				sa.interrupt();
+				as.interrupt();
 				System.out.println("자동저장 비활성화");
 			}
 		}
@@ -235,24 +226,14 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 			System.out.println("메뉴를 잘못입력하셨습니다.");
 		}
 	}
-	private void setDaemon(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public void saveInfoTxt() throws IOException 
-	{
-		ObjectOutputStream out = new ObjectOutputStream(
-				new FileOutputStream(dataFile));
-		out.writeObject(obj);
-	}
 	public void saveData()
 	{
 		try 
 		{
 			ObjectOutputStream out = 
 					new ObjectOutputStream
-					(new FileOutputStream("src/project1/ver08/PhoneBook.obj"));
+					(new FileOutputStream(dataFile));
 			Iterator itr = obj.iterator();
 			while(itr.hasNext())
 			{
@@ -270,7 +251,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 		try {
 			ObjectInputStream in = 
 					new ObjectInputStream
-					(new FileInputStream("src/project1/ver08/PhoneBook.obj"));
+					(new FileInputStream(dataFile));
 					
 			while(true) 
 			{
@@ -285,4 +266,5 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 			e.printStackTrace();
 		}
 	}
+
 }
