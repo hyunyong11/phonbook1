@@ -246,4 +246,43 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 				new FileOutputStream(dataFile));
 		out.writeObject(obj);
 	}
+	public void saveData()
+	{
+		try 
+		{
+			ObjectOutputStream out = 
+					new ObjectOutputStream
+					(new FileOutputStream("src/project1/ver08/PhoneBook.obj"));
+			Iterator itr = obj.iterator();
+			while(itr.hasNext())
+			{
+				Object object = itr.next();
+				out.writeObject(object);
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("데이터 직렬화 오류");
+		}
+	}
+	public void readData() 
+	{
+		try {
+			ObjectInputStream in = 
+					new ObjectInputStream
+					(new FileInputStream("src/project1/ver08/PhoneBook.obj"));
+					
+			while(true) 
+			{
+				Object object = in.readObject();
+				obj.add(object);
+				if(object == null) break;
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("복원시 오류발생");
+			e.printStackTrace();
+		}
+	}
 }
