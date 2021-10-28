@@ -17,6 +17,7 @@ public class PhoneBookVer08
 		Scanner scan = new Scanner(System.in);
 	
 		PhoneBookManager handler = new PhoneBookManager();	
+		handler.readData();
 		AutoSaverT as = new AutoSaverT(handler);
 		
 		while(true)
@@ -41,13 +42,22 @@ public class PhoneBookVer08
 					handler.dataAllShow();
 					break;
 				case MenuItem.AUTOSAVE1:
-					handler.autoSave(as);
+					if(!as.isAlive())
+					{
+						as = new AutoSaverT(handler);
+						handler.autoSave(as);
+					}
+					else if(as.isAlive())
+					{
+						handler.autoSave(as);
+					}
 					break;
 				case MenuItem.END:
 					System.out.println("프로그램을 종료합니다.");
 					return;
 				default :
 					System.out.println("1~6번중에 선택하세요");
+					handler.saveData();
 					break;
 				}
 			}

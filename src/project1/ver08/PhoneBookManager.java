@@ -1,5 +1,6 @@
  package project1.ver08;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -199,17 +200,18 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 	{
 		System.out.println("1번 : 자동저장 켜기   2번 : 자동저장 끄기");
 		int save = sc.nextInt();
+		
 		if(save==1)
 		{
 			if(!as.isAlive())
 			{
+				System.out.println("자동저장 활성화");
 				as.setDaemon(true);
 				as.start();
-				System.out.println("자동저장 활성화");
 			}
 			else
 			{
-				System.out.println("이미 자동저장이 활성화됨");
+				System.out.println("이미 자동저장이 실행중입니다.");
 			}
 			
 		}
@@ -217,8 +219,8 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 		{
 			if(as.isAlive())
 			{
-				as.interrupt();
 				System.out.println("자동저장 비활성화");
+				as.interrupt();
 			}
 		}
 		else
@@ -248,6 +250,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 	}
 	public void readData() 
 	{
+		boolean bl = true;
 		try {
 			ObjectInputStream in = 
 					new ObjectInputStream
@@ -255,15 +258,21 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 					
 			while(true) 
 			{
-				Object object = in.readObject();
+				Object object = (PhoneInfo)in.readObject();
 				obj.add(object);
 				if(object == null) break;
 			}
+			in.close();
+		}
+		catch(EOFException e)
+		{
+			
 		}
 		catch(Exception e)
 		{
 			System.out.println("복원시 오류발생");
 			e.printStackTrace();
+			bl = false;
 		}
 	}
 
