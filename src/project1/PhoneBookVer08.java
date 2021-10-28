@@ -10,7 +10,6 @@ import project1.ver08.PhoneBookManager;
 	
 public class PhoneBookVer08 
 {
-
 	
 	
 	public static void main(String[] args) 
@@ -40,11 +39,14 @@ public class PhoneBookVer08
 				case MenuItem.DATAALLSHOW1:
 					handler.dataAllShow();
 					break;
+				case MenuItem.AUTOSAVE1:
+					handler.autoSave(handler);
+					break;
 				case MenuItem.END:
 					System.out.println("프로그램을 종료합니다.");
 					return;
 				default :
-					System.out.println("1~5번중에 선택하세요");
+					System.out.println("1~6번중에 선택하세요");
 					break;
 				}
 			}

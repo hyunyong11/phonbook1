@@ -1,5 +1,14 @@
  package project1.ver08;
 
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -8,13 +17,14 @@ import java.util.Set;
 
 
 
-public class PhoneBookManager implements MenuItem, SubMenuItem
+public class PhoneBookManager implements MenuItem, SubMenuItem 
 {
 	
-	HashSet<Object> obj = new HashSet<Object>(100);
-
-	public PhoneBookManager() {}
+	 HashSet<Object> obj = new HashSet<Object>(100);
 	
+	 Scanner sc = new Scanner(System.in);
+	 private final File dataFile = 
+				new File("src/project1/ver08/PhoneBook.obj");
 	
 	public static void printMenu() 
 	{
@@ -23,7 +33,8 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 		System.out.println("2. 데이터 검색 ");
 		System.out.print("3. 데이터 삭제 ");
 		System.out.println("4. 주소록 출력 ");
-		System.out.print("5. 프로그램 종료 " );
+		System.out.print("5. 저장옵션 " );
+		System.out.print("6. 프로그램 종료 " );
 	}
 	
 	public void dataInput()
@@ -69,25 +80,35 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 			{
 				throw new NullPointerException();
 			}
+			
+			
 			if(obj.add(obj2)==false)
 			{
 				System.out.println("이름 똑같잖아요");
 				System.out.println("덮어쓸까? Y(y)/N(n)");
-				char tryag = sc.next().charAt(0);
 				
-				if(tryag == 'y' || tryag == 'Y')
+				String rename = sc.nextLine();
+				
+				if(rename.equals("Y")||rename.equals("y"))
 				{
-					Iterator itr = obj.iterator();
-					while(itr.hasNext())
+					if(obj.contains(obj2))
 					{
-						PhoneInfo PI = (PhoneInfo)itr.next();
-						
-						if(PI.name.equals(obj2.name))//기존삭제 새로넣은거 붙이기
-						{
-							obj.remove(PI);
-							obj.add(obj2);
-						}
+						obj.remove(obj2);
+						obj.add(obj2);
+						System.out.println("덮어쓰기성공");
 					}
+					else
+					{
+						System.out.println("덮어쓰기실패");
+					}
+				}
+				else if(rename.equals("N")||rename.equals("n"))
+				{
+					System.out.println("덮어쓰기 취소.");
+				}
+				else
+				{
+					System.out.println("잘못입력");
 				}
 			}
 		}
@@ -127,10 +148,6 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 					}
 				}
 			}
-			if(isFind =false)
-			{
-				throw new NullPointerException();
-			}
 		}	
 		catch(NullPointerException e)
 		{
@@ -145,7 +162,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 		System.out.print("삭제할 이름을 입력하세요:");
 		String deleteName = sc.nextLine();
 		
-		System.out.println("삭제되었습니다");
+		System.out.println("삭제되었습니다.");
 		
 		try
 		{	
@@ -184,5 +201,49 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 			else
 				((PhoneInfo)object).showPhoneInfo();
 		}
+	}
+	public void autoSave(PhoneBookManager handler) 
+	{
+		System.out.println("1번 : 자동저장 켜기   2번 : 자동저장 끄기");
+		int save = sc.nextInt();
+		AutoSaverT sa = null;
+		
+		if(save==1)
+		{
+			if(!sa.isAlive())
+			{
+				setDaemon(true);
+				sa.start();
+				System.out.println("자동저장 활성화");
+			}
+			else
+			{
+				System.out.println("이미 자동저장이 활성화됨");
+			}
+			
+		}
+		else if(save==2)
+		{
+			if(sa.isAlive())
+			{
+				sa.interrupt();
+				System.out.println("자동저장 비활성화");
+			}
+		}
+		else
+		{
+			System.out.println("메뉴를 잘못입력하셨습니다.");
+		}
+	}
+	private void setDaemon(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void saveInfoTxt() throws IOException 
+	{
+		ObjectOutputStream out = new ObjectOutputStream(
+				new FileOutputStream(dataFile));
+		out.writeObject(obj);
 	}
 }
