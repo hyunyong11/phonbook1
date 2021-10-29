@@ -204,7 +204,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 	{
 		boolean bl = true;
 		Iterator itr = obj.iterator();
-		while(itr.hasNext()==true)
+		while(itr.hasNext())
 		{
 			System.out.println("전체정보가 출력되었슴다");
 			Object object = itr.next();
