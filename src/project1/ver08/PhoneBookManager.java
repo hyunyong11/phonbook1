@@ -17,18 +17,20 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 	 HashSet<Object> obj = new HashSet<Object>(100);
 	
 	 Scanner sc = new Scanner(System.in);
-	 File dataFile = 
+	 File data = 
 				new File("src/project1/ver08/PhoneBook.obj");
 	
 	public static void printMenu() 
 	{
-		System.out.println("######## 메뉴를 입력하세요 ########");
-		System.out.print("1. 데이터 입력 ");
-		System.out.println("2. 데이터 검색 ");
-		System.out.print("3. 데이터 삭제 ");
-		System.out.println("4. 주소록 출력 ");
-		System.out.print("5. 저장옵션 " );
-		System.out.print("6. 프로그램 종료 " );
+		System.out.println("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
+		System.out.println("♠######## 메뉴를 입력하세요 ########♠");
+		System.out.print("♠ 1. 데이터 입력 ");
+		System.out.println("  2. 데이터 검색   ♠");
+		System.out.print("♠ 3. 데이터 삭제 ");
+		System.out.println("  4. 주소록 출력   ♠");
+		System.out.print("♠ 5. 저장옵션 " );
+		System.out.println("     6. 프로그램 종료 ♠ " );
+		System.out.println("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
 	}
 	
 	public void dataInput()
@@ -42,18 +44,22 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 		
 		try 
 		{
-			System.out.print("이름:");
-			String name = sc.nextLine();
-			System.out.print("전화번호:");
-			String phone = sc.nextLine();
 			
 			if(num==SubMenuItem.NOMAL)
 			{
+				System.out.print("이름:");
+				String name = sc.nextLine();
+				System.out.print("전화번호:");
+				String phone = sc.nextLine();
 				obj2=new PhoneInfo(name,phone);
 			}
 			
 			else if(num==SubMenuItem.SCFRI)
 			{
+				System.out.print("이름:");
+				String name = sc.nextLine();
+				System.out.print("전화번호:");
+				String phone = sc.nextLine();
 				System.out.print("전공 : ");
 				String major = sc.nextLine();
 				System.out.print("학년 : ");
@@ -65,6 +71,10 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 			
 			else if(num==SubMenuItem.COFRI)
 			{
+				System.out.print("이름:");
+				String name = sc.nextLine();
+				System.out.print("전화번호:");
+				String phone = sc.nextLine();
 				System.out.print("회사명 : ");
 				String comp = sc.nextLine();
 				PhoneCompanyInfo obj3 = new PhoneCompanyInfo(name, phone, comp);
@@ -72,6 +82,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 			}
 			else
 			{
+				System.out.println("1~3까지 입력해라");
 				throw new NullPointerException();
 			}
 			
@@ -127,7 +138,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 				
 				if(PI.name.equals(searchName))
 				{
-					isFind =true;
+					isFind = true;
 					if(PI instanceof PhoneCompanyInfo)
 					{
 						((PhoneCompanyInfo)PI).showPhoneCompanyInfo();
@@ -142,10 +153,13 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 					}
 				}
 			}
+			if(isFind==false)
+			{
+				System.out.println("이름잘못입력했다 새퀴야");
+			}
 		}	
 		catch(NullPointerException e)
 		{
-			System.out.println("==이름 잘못입력하셨슴다==");
 		}
 	}
 	
@@ -156,7 +170,6 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 		System.out.print("삭제할 이름을 입력하세요:");
 		String deleteName = sc.nextLine();
 		
-		System.out.println("삭제되었습니다.");
 		
 		try
 		{	
@@ -169,7 +182,12 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 				{
 					isFind=true;
 					itr.remove();
+					System.out.println("삭제성공");
 				}
+			}
+			if(isFind==false)
+			{
+				System.out.println("그런사람 읎다");
 			}
 			if(isFind=false)
 			{
@@ -184,6 +202,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 	
 	public void dataAllShow()
 	{
+		boolean bl = true;
 		Iterator itr = obj.iterator();
 		while(itr.hasNext())
 		{
@@ -195,6 +214,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 			else
 				((PhoneInfo)object).showPhoneInfo();
 		}
+		System.out.println("전체정보가 출력되었슴다");
 	}
 	public void autoSave(AutoSaverT as) 
 	{
@@ -235,7 +255,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 		{
 			ObjectOutputStream out = 
 					new ObjectOutputStream
-					(new FileOutputStream(dataFile));
+					(new FileOutputStream(data));
 			Iterator itr = obj.iterator();
 			while(itr.hasNext())
 			{
@@ -254,15 +274,17 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 		try {
 			ObjectInputStream in = 
 					new ObjectInputStream
-					(new FileInputStream(dataFile));
+					(new FileInputStream(data));
 					
 			while(true) 
 			{
 				Object object = (PhoneInfo)in.readObject();
 				obj.add(object);
-				if(object == null) break;
+				if(object == null)
+				{
+					break;
+				}
 			}
-			in.close();
 		}
 		catch(EOFException e)
 		{
@@ -274,6 +296,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 			e.printStackTrace();
 			bl = false;
 		}
+		System.out.println("친구정보 복원완료");
 	}
 
 }

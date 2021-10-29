@@ -54,10 +54,10 @@ public class PhoneBookVer08
 					break;
 				case MenuItem.END:
 					System.out.println("프로그램을 종료합니다.");
+					handler.saveData();
 					return;
 				default :
 					System.out.println("1~6번중에 선택하세요");
-					handler.saveData();
 					break;
 				}
 			}

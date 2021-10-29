@@ -12,9 +12,6 @@ public class AutoSaverT extends Thread
 		this.pm = pm;
 	}
 	
-
-
-
 	@Override
 	public void run() 
 	{
@@ -39,7 +36,7 @@ public class AutoSaverT extends Thread
 			
 		}
 	}
-				
+	
 }
 
 
