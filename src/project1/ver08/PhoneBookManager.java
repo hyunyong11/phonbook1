@@ -155,7 +155,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 			}
 			if(isFind==false)
 			{
-				System.out.println("이름잘못입력했다 새퀴야");
+				System.out.println("그런사람읎다고 새퀴야");
 			}
 		}	
 		catch(NullPointerException e)
@@ -204,8 +204,9 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 	{
 		boolean bl = true;
 		Iterator itr = obj.iterator();
-		while(itr.hasNext())
+		while(itr.hasNext()==true)
 		{
+			System.out.println("전체정보가 출력되었슴다");
 			Object object = itr.next();
 			if(object instanceof PhoneCompanyInfo)
 				((PhoneCompanyInfo)object).showPhoneCompanyInfo();
@@ -214,7 +215,10 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 			else
 				((PhoneInfo)object).showPhoneInfo();
 		}
-		System.out.println("전체정보가 출력되었슴다");
+		if(obj.isEmpty()==true)
+		{
+			System.out.println("정보가 없다");
+		}
 	}
 	public void autoSave(AutoSaverT as) 
 	{
