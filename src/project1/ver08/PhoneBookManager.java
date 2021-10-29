@@ -17,7 +17,7 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 	 HashSet<Object> obj = new HashSet<Object>(100);
 	
 	 Scanner sc = new Scanner(System.in);
-	 private final File dataFile = 
+	 File dataFile = 
 				new File("src/project1/ver08/PhoneBook.obj");
 	
 	public static void printMenu() 
@@ -114,9 +114,9 @@ public class PhoneBookManager implements MenuItem, SubMenuItem
 		boolean isFind = false;
 		Scanner sc = new Scanner(System.in);
 		System.out.println("데이터 검색을 시작합니다..");
+		System.out.print("이름을 입력하세요 : ");
 		String searchName = sc.nextLine();
 		
-		System.out.print("이름 : ");
 		try
 		{
 			Iterator itr = obj.iterator();
