@@ -43,34 +43,7 @@ public class PhoneBookVer09
 				handler.dataDelete();
 				break;
 			case 4:
-				handler.oracleSave();
-				break;
-			case 5:
-				try 
-				{
-					if(sta!=null)
-					{
-						sta.close();
-					}
-					if(connect!=null)
-					{
-						connect.close();
-					}
-					if(psmt!=null)
-					{
-						psmt.close();
-					}
-					if(rs!=null)
-					{
-						rs.close();
-					}
-					System.out.println("자원반납 성공");
-				}
-				catch(SQLException e)
-				{
-					System.out.println("오류발생");
-				}
-				System.out.println("프로그램을 종료합니다.");
+				handler.end();
 				return;
 			}
 		}
